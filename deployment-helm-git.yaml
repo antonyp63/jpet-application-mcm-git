@@ -12,9 +12,7 @@ spec:
     kind: helm
     helm:
       namespace: default
-      repository: local-charts
-      chartName: mmssearch
-      version: 0.1.0
+      chartURL:
 ---
 apiVersion: mcm.ibm.com/v1alpha1
 kind: Deployable
@@ -30,6 +28,4 @@ spec:
     kind: helm
     helm:
       namespace: default
-      repository: local-charts
-      chartName: modernpets
-      version: 0.1.5
+      chartURL: 
