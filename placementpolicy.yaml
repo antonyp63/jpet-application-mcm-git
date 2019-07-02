@@ -1,0 +1,27 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementPolicy
+metadata:
+  name: mmssearch
+  labels:
+    name: jpetstore
+    app: jpetstore
+  namespace: default
+spec:
+  clusterLabels:
+    matchLabels:
+      name: icp
+  clusterReplicas: 2
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementPolicy
+metadata:
+  name: modernpets
+  labels:
+    name: jpetstore
+    app: jpetstore
+  namespace: default
+spec:
+  clusterLabels:
+    matchLabels:
+      name: icp
+  clusterReplicas: 1

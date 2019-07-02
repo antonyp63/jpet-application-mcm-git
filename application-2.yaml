@@ -1,0 +1,17 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata: 
+  labels: 
+    app: jpetstore
+    name: jpetstore
+  name: jpetstore
+  namespace: default
+spec: 
+  componentKinds: 
+    - 
+      group: mcm.ibm.com/v1alpha1
+      kind: PlacementPolicy
+  descriptor: {}
+  selector: 
+    matchLabels: 
+      app: jpetstore

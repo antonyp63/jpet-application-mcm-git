@@ -1,0 +1,14 @@
+# Default values for modernpets.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: build-15.pure.mel.lab:8500/default # Ex: us.icr.io/mynamespace
+  pullPolicy: Always
+
+ingress:
+  enabled: true
+  hosts:
+    - mmssearch.10.1.11.15.nip.io # Ex: mmssearch.myclustername.us-south.containers.mybluemix.net

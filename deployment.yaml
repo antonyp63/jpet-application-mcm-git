@@ -1,0 +1,35 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: mmssearch
+  namespace: default
+  labels:
+    name: mmssearch
+    app: jpetstore
+    serviceKind: ApplicationService
+spec:
+  deployer:
+    kind: helm
+    helm:
+      namespace: default
+      repository: local-charts
+      chartName: mmssearch
+      version: 0.1.0
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: modernpets
+  namespace: default
+  labels:
+    name: modernpets
+    app: jpetstore
+    serviceKind: ApplicationService
+spec:
+  deployer:
+    kind: helm
+    helm:
+      namespace: default
+      repository: local-charts
+      chartName: modernpets
+      version: 0.1.5

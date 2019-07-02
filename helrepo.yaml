@@ -1,0 +1,9 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: HelmRepo
+metadata:
+  namespace: default
+  name: local-charts
+  annotations:
+      mcm.ibm.com/hub-cluster-repo: "true"
+spec:
+  url: https://build-15.pure.mel.lab:8443/helm-repo/charts

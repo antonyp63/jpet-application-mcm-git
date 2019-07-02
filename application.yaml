@@ -1,0 +1,165 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata: 
+  labels: 
+    app: jpetstore
+    name: jpetstore
+  name: jpetstore
+  namespace: default
+spec: 
+  componentKinds: 
+    - 
+      group: mcm.ibm.com/v1alpha1
+      kind: PlacementPolicy
+  descriptor: {}
+  selector: 
+    matchLabels: 
+      app: jpetstore
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: HelmRepo
+metadata:
+  namespace: default
+  name: local-charts
+  annotations:
+      mcm.ibm.com/hub-cluster-repo: "true"
+spec:
+  url: https://build-15.pure.mel.lab:8443/helm-repo/charts
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: mmssearch
+  namespace: default
+  labels:
+    name: mmssearch
+    app: jpetstore
+    serviceKind: ApplicationService
+spec:
+  deployer:
+    kind: helm
+    helm:
+      namespace: default
+      repository: local-charts
+      chartName: mmssearch
+      version: 0.1.0
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: modernpets
+  namespace: default
+  labels:
+    name: modernpets
+    app: jpetstore
+    serviceKind: ApplicationService
+spec:
+  deployer:
+    kind: helm
+    helm:
+      namespace: default
+      repository: local-charts
+      chartName: modernpets
+      version: 0.1.5
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementPolicy
+metadata:
+  name: mmssearch
+  labels:
+    name: jpetstore
+    app: jpetstore
+  namespace: default
+spec:
+  clusterLabels:
+    matchLabels:
+      name: local-cluster
+  clusterReplicas: 2
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementPolicy
+metadata:
+  name: modernpets
+  labels:
+    name: jpetstore
+    app: jpetstore
+  namespace: default
+spec:
+  clusterLabels:
+    matchLabels:
+      name: local-cluster
+  clusterReplicas: 1
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: ApplicationRelationship
+metadata:
+  name: mmssearch-apprelation
+  labels:
+    app: jpetstore
+    destinationKind: Deployable
+    destinationName: mmssearch
+    sourceKind: Application
+    sourceName: jpetstore
+    namespace: default
+spec:
+  destination:
+    name: mmssearch
+    kind: Deployable
+  source:
+    name: jpetstore
+    kind: Application
+  type: contains
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: ApplicationRelationship
+metadata:
+  name: modernpets-apprelation
+  labels:
+    app: jpetstore
+    destinationKind: Deployable
+    destinationName: modernpets
+    sourceKind: Application
+    sourceName: jpetstore
+    namespace: default
+spec:
+  destination:
+    name: modernpets
+    kind: Deployable
+  source:
+    name: jpetstore
+    kind: Application
+  type: contains
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  labels:
+    app: jpetstore
+    name: jpetstore
+    placementPolicy: jpetstore
+  name: mmssearch-placementbinding
+placementRef:
+  apiGroup: mcm.ibm.com
+  kind: PlacementPolicy
+  name: mmssearch
+subjects:
+- apiGroup: mcm.ibm.com
+  kind: Deployable
+  name: mmssearch
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  labels:
+    app: jpetstore
+    name: jpetstore
+    placementPolicy: jpetstore
+  name: modernpets-placementbinding
+placementRef:
+  apiGroup: mcm.ibm.com
+  kind: PlacementPolicy
+  name: modernpets
+subjects:
+- apiGroup: mcm.ibm.com
+  kind: Deployable
+  name: modernpets

@@ -1,0 +1,33 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  labels:
+    app: jpetstore
+    name: jpetstore
+    placementPolicy: jpetstore
+  name: mmssearch-placementbinding
+placementRef:
+  apiGroup: mcm.ibm.com
+  kind: PlacementPolicy
+  name: mmssearch
+subjects:
+- apiGroup: mcm.ibm.com
+  kind: Deployable
+  name: mmssearch
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: PlacementBinding
+metadata:
+  labels:
+    app: jpetstore
+    name: jpetstore
+    placementPolicy: jpetstore
+  name: modernpets-placementbinding
+placementRef:
+  apiGroup: mcm.ibm.com
+  kind: PlacementPolicy
+  name: modernpets
+subjects:
+- apiGroup: mcm.ibm.com
+  kind: Deployable
+  name: modernpets

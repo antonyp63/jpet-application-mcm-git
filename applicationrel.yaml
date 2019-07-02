@@ -1,0 +1,39 @@
+apiVersion: mcm.ibm.com/v1alpha1
+kind: ApplicationRelationship
+metadata:
+  name: mmssearch-apprelation
+  labels:
+    app: jpetstore
+    destinationKind: Deployable
+    destinationName: mmssearch
+    sourceKind: Application
+    sourceName: jpetstore
+    namespace: default
+spec:
+  destination:
+    name: mmssearch
+    kind: Deployable
+  source:
+    name: jpetstore
+    kind: Application
+  type: contains
+---
+apiVersion: mcm.ibm.com/v1alpha1
+kind: ApplicationRelationship
+metadata:
+  name: modernpets-apprelation
+  labels:
+    app: jpetstore
+    destinationKind: Deployable
+    destinationName: modernpets
+    sourceKind: Application
+    sourceName: jpetstore
+    namespace: default
+spec:
+  destination:
+    name: modernpets
+    kind: Deployable
+  source:
+    name: jpetstore
+    kind: Application
+  type: contains
