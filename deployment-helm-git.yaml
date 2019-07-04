@@ -12,7 +12,7 @@ spec:
     kind: helm
     helm:
       namespace: default
-      chartURL:
+      chartURL: https://raw.githubusercontent.com/antonyp63/jpet-application-mcm-git/master/helm/mmssearch-0.1.0.tgz
 ---
 apiVersion: mcm.ibm.com/v1alpha1
 kind: Deployable
@@ -28,4 +28,4 @@ spec:
     kind: helm
     helm:
       namespace: default
-      chartURL: 
+      chartURL: https://raw.githubusercontent.com/antonyp63/jpet-application-mcm-git/master/helm/modernpets-0.1.5.tgz
